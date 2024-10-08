@@ -41,6 +41,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     component: () => import('@/views/Login.vue') // Ensure this path is correct
+  },
+  {
+    path: '/signup',
+    component: () => import('@/views/SignUp.vue') // Ensure this path is correct
   }
 ];
 

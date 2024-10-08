@@ -26,7 +26,7 @@
               </ion-button>
   
               <!-- Signup Button -->
-              <ion-button expand="block" router-link="/signup" class="signup-button">
+              <ion-button expand="block" @click="signup" class="signup-button">
                 Signup
               </ion-button>
 
@@ -55,6 +55,11 @@
     
     // Navigate to the home page after login
     router.push('/');
+  };
+
+  const signup = () => {
+    // Navigate to the home page after login
+    router.push('/signup');
   };
   </script>
   
