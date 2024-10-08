@@ -1,0 +1,7 @@
+{
+  "name": "Rabguard",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
