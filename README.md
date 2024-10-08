@@ -1,1 +1,3 @@
-"# IonicRabguard" 
+"# IonicRabguard
+npm i
+ionic serve
