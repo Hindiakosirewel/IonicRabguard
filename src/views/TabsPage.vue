@@ -61,7 +61,7 @@
       <ion-tabs>
         <ion-router-outlet></ion-router-outlet>
 
-        <!-- Bottom Tab Bar 
+  Bottom Tab Bar 
         <ion-tab-bar slot="bottom" color="primary" translucent>
           <ion-tab-button tab="Dashboard" href="/tabs/Dashboard">
             <ion-icon aria-hidden="true" :icon="home" />
@@ -89,7 +89,6 @@
             <ion-label>History</ion-label>
           </ion-tab-button>
         </ion-tab-bar>
-         -->
       </ion-tabs>
     </ion-page>
   </ion-app>

@@ -15,9 +15,9 @@
           <ion-card-title>Vaccination Record</ion-card-title>
         </ion-card-header>
 
-        <ion-card-content>
+        <ion-card-content id="pdf-content"> <!-- Add an ID to target this element -->
           <div class="text-info">
-            <!-- Personal Information -->
+            <!-- Patient Information -->
             <div class="section-title">Patient Information</div>
             <div class="personal-info">
               <div><strong>NAME:</strong> {{ fullName(patient) }}</div>
@@ -47,6 +47,11 @@
               <div><strong>Day 7:</strong> {{ formatDate(patient.date7) }} <ion-icon :name="patient.day7 ? 'checkmark-circle' : ''"></ion-icon></div>
               <div><strong>Day 28:</strong> {{ formatDate(patient.date28) }} <ion-icon :name="patient.day28 ? 'checkmark-circle' : ''"></ion-icon></div>
             </div>
+
+            <!-- Download Button -->
+            <ion-button expand="full" color="primary" @click="downloadPDF">
+              Download PDF
+            </ion-button>
           </div>
         </ion-card-content>
       </ion-card>
@@ -56,7 +61,8 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon } from '@ionic/vue';
+import html2pdf from 'html2pdf.js';  // Import html2pdf.js
 
 // Define reactive patient data
 const patient = ref({
@@ -97,6 +103,16 @@ const formatDate = (date: string | number | Date) => new Date(date).toLocaleDate
   month: 'long',
   day: 'numeric',
 });
+
+// Function to handle PDF download
+const downloadPDF = () => {
+  const element = document.getElementById('pdf-content');  // Use the ID to select the content to convert to PDF
+  if (element) {
+    html2pdf()
+      .from(element)
+      .save('Vaccination_Record.pdf');  // Set the file name
+  }
+};
 </script>
 
 <style scoped>
