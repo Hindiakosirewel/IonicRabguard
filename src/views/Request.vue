@@ -32,6 +32,7 @@
                 <ion-item>
                   <ion-label position="floating">Date of Exposure</ion-label>
                   <br>
+                  <br>
                   <ion-datetime display-format="MM/DD/YYYY" :max="getCurrentDate()" v-model="newPatient.expdate"></ion-datetime>
                 </ion-item>
 
@@ -45,7 +46,7 @@
                     <ion-select-option value="Asinan">Asinan</ion-select-option>
                     <ion-select-option value="Banicain">Banicain</ion-select-option>
                     <ion-select-option value="Barretto">Barretto</ion-select-option>
-                    <!-- Add other options here -->
+                    
                     <ion-select-option value="Others">Others</ion-select-option>
                   </ion-select>
                 </ion-item>
@@ -117,7 +118,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonModal, IonGrid, IonRow, IonCol } from '@ionic/vue';
 
 // Modal state
@@ -128,8 +129,8 @@ const setOpen = (open: boolean) => {
   isOpen.value = open;
 };
 
-// Patient form data
-const newPatient = ref({
+// Patient form data (using reactive)
+const newPatient = reactive({
   expdate: '',
   expplace: '',
   otherPlace: '',
@@ -142,15 +143,15 @@ const newPatient = ref({
 
 // Validation: Check if all fields are filled
 const isFormValid = computed(() => {
-  return newPatient.value.expdate && newPatient.value.expplace && 
-         newPatient.value.expsource && newPatient.value.exptype && 
-         newPatient.value.expsite && newPatient.value.wash;
+  return newPatient.expdate && newPatient.expplace && 
+         newPatient.expsource && newPatient.exptype && 
+         newPatient.expsite && newPatient.wash;
 });
 
 // Form submission handler
 const submitForm = () => {
   if (isFormValid.value) {
-    console.log('Form submitted', newPatient.value);
+    console.log('Form submitted', newPatient);
     setOpen(false); // Close modal after submission
   } else {
     alert("Please fill in all fields.");
@@ -168,6 +169,7 @@ const getCurrentDate = () => {
   return today.toISOString().split('T')[0]; // returns YYYY-MM-DD format
 };
 </script>
+
 
 <style scoped>
 .form-columns {

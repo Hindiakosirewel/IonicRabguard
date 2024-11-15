@@ -174,6 +174,7 @@ ion-card-title {
   font-size: 1.4rem;
   font-weight: bold;
   color: #3b3b3b;
+  align-items: flex-start;
 }
 
 ion-item {

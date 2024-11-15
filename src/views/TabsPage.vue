@@ -2,49 +2,40 @@
   <ion-app>
     <!-- Side Menu -->
     <ion-menu side="start" content-id="main-content">
-      <ion-header>
-        <ion-toolbar color="primary">
-          <ion-title>RabGuard</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
       <ion-content>
         <!-- Logo Section -->
         <div class="logo-container">
-          <img src="@/assets/rabguardlogo.png" alt="Rabguard Logo" class="logo" />
+          <img src="@/assets/mac.png" alt="Profile Picture" class="logo" />
         </div>
-        
+
         <!-- Profile Section -->
         <div class="profile-section">
           <ion-item button>
-            <ion-avatar slot="start">
-              <img src="@/assets/mac.png" alt="Profile Picture" />
-            </ion-avatar>
             <ion-label>
-              <h2 class="username">Mac Arthur Llanes Jr.</h2>
+              <h2 class="username">Mac Arthur Llanes</h2>
               <p class="location">New Cabalan</p>
             </ion-label>
           </ion-item>
         </div>
 
         <ion-list>
-          <ion-item router-link="/tabs/Dashboard" class="menu-item" >
+          <ion-item router-link="/tabs/Dashboard" class="menu-item">
             <ion-icon :icon="home" slot="start" />
             <ion-label>Dashboard</ion-label>
           </ion-item>
-          <ion-item router-link="/tabs/Profile" class="menu-item" >
+          <ion-item router-link="/tabs/Profile" class="menu-item">
             <ion-icon :icon="user" slot="start" />
             <ion-label>Profile</ion-label>
           </ion-item>
-          <ion-item router-link="/tabs/Request" class="menu-item" >
+          <ion-item router-link="/tabs/Request" class="menu-item">
             <ion-icon :icon="clipboardOutline" slot="start" />
             <ion-label>Request</ion-label>
           </ion-item>
-          <ion-item router-link="/tabs/Record" class="menu-item" >
+          <ion-item router-link="/tabs/Record" class="menu-item">
             <ion-icon :icon="calendarOutline" slot="start" />
             <ion-label>Record</ion-label>
           </ion-item>
-          <ion-item router-link="/tabs/History" class="menu-item" >
+          <ion-item router-link="/tabs/History" class="menu-item">
             <ion-icon :icon="documentOutline" slot="start" />
             <ion-label>History</ion-label>
           </ion-item>
@@ -52,7 +43,7 @@
 
         <!-- Logout Button -->
         <div class="logout-container">
-          <ion-button expand="full" color="danger" @click="logout">Logout</ion-button>
+          <ion-icon :icon="logOutIcon" color="white" @click="logout" />
         </div>
       </ion-content>
     </ion-menu>
@@ -61,12 +52,11 @@
       <ion-tabs>
         <ion-router-outlet></ion-router-outlet>
 
-  Bottom Tab Bar 
+        <!-- Bottom Tab Bar -->
         <ion-tab-bar slot="bottom" color="primary" translucent>
           <ion-tab-button tab="Dashboard" href="/tabs/Dashboard">
             <ion-icon aria-hidden="true" :icon="home" />
             <ion-label>Dashboard</ion-label>
-            <ion-badge color="success" v-if="hasNotifications">1</ion-badge>
           </ion-tab-button>
 
           <ion-tab-button tab="Profile" href="/tabs/Profile">
@@ -94,9 +84,10 @@
   </ion-app>
 </template>
 
+
 <script setup lang="ts">
-import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonPage, IonTabs, IonTabBar, IonTabButton, IonLabel, IonIcon, IonBadge, IonRouterOutlet, IonAvatar, IonButton } from '@ionic/vue';
-import { calendarOutline, documentOutline, home, person as user, clipboardOutline } from 'ionicons/icons';
+import { IonMenu,  IonContent, IonList, IonItem, IonPage, IonTabs, IonTabBar, IonTabButton, IonLabel, IonIcon, IonBadge, IonRouterOutlet, IonAvatar, IonButton } from '@ionic/vue';
+import { calendarOutline, documentOutline, home, person as user, clipboardOutline, logOut as logOutIcon } from 'ionicons/icons';
 
 // Simulate whether there are notifications for the Dashboard tab
 const hasNotifications = true;
@@ -112,6 +103,7 @@ const logout = () => {
 /* Sidebar background */
 ion-menu {
   --background: #f5f5f5; /* Light background for sidebar */
+  
 }
 
 /* Logo container styles */
@@ -123,8 +115,12 @@ ion-menu {
 }
 
 .logo {
-  width: 120px; /* Adjusted width for simplicity */
+  width: 180px; /* Adjusted width for simplicity */
   height: auto;
+  border-radius: 50%; /* Circular profile image */
+  border: 3px solid #fff; /* Border around the image */
+  margin-top: 5%;
+
 }
 
 /* Profile section styles */
@@ -132,6 +128,7 @@ ion-menu {
   margin: 16px 0; /* Margin for spacing */
   padding: 0 16px; /* Padding for content */
   border-bottom: 1px solid #ccc; /* Divider line */
+  align-content: center;
 }
 
 .username {
@@ -146,25 +143,47 @@ ion-menu {
 
 /* Menu item styles */
 .menu-item {
-  --background: transparent; /* Clear background for a clean look */
-  --color: #333; /* Dark text color for better contrast */
-  margin: 8px 0; /* Margin between items */
-  border-radius: 8px; /* Rounded corners */
-  transition: background 0.2s; /* Smooth transition */
+  --background: transparent;
+  --color: #333;
+  margin: 8px 0;
+  border-radius: 8px;
+  transition: background 0.3s ease, padding-left 0.3s ease;
 }
 
 .menu-item:hover {
-  --background: rgba(38, 97, 156, 0.1); /* Subtle hover effect */
-  --color: #26619c; /* Change text color on hover */
+  --background: rgba(38, 97, 156, 0.1);
+  --color: #26619c;
+  padding-left: 10px; /* Indicate hover state by shifting content */
 }
 
-/* Logout button styles */
+.menu-item ion-icon {
+  transition: transform 0.2s;
+}
+
+.menu-item:hover ion-icon {
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+
+
+/* Logout icon styles */
 .logout-container {
-  padding: 16px; /* Padding around the button */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  margin-top: 10%;
 }
 
-.logout-container ion-button {
-  border-radius: 20px; /* Rounded corners for the button */
+.logout-container ion-icon {
+  font-size: 2.5em; /* Larger icon */
+  cursor: pointer;
+  transition: transform 0.2s;
+  color: #f5f5f5;
+}
+
+.logout-container ion-icon:hover {
+
+  transform: scale(1.2); /* Slight scale on hover for better UX */
 }
 
 /* Tab button styles */
@@ -187,5 +206,4 @@ ion-tab-button.ion-selected {
   --color: #ffffff; /* White text for selected tab */
   --color-selected: #ffd700; /* Gold for the selected tab */
 }
-
 </style>

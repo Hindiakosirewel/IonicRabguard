@@ -14,6 +14,8 @@ import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import { ref, watchEffect } from 'vue';
 import Login from './views/Login.vue';
 
+
+
 // Reactive state to track if the user is logged in
 const isLoggedIn = ref(false);
 
